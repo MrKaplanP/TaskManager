@@ -47,7 +47,7 @@ The application will be accessible at http://127.0.0.1:5000/ by default.
 ## TODOs
 
 - [ ]  Make it more secure
-- [X] ✔Add edit, delete tasks
+- ✔Add edit, delete tasks
 
 ## Tech Stack
 

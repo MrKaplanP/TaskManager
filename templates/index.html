@@ -1,55 +1,63 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <div class="wrapcont">
-        <h1 class="mb-4 animatext" style="text-align: center;">Task Manager</h1>
-        <div class="mb-4 tasksection">
-            <h3 style="text-align: center;">Add Task</h3>
-            <form action="/add_task" method="post" class="formtasks">
-                <div class="form-group">
-                    <label for="title">Title:</label>
-                    <input type="text" class="form-control" id="title" name="title" required>
-                </div>
-                <div class="form-group">
-                    <label for="description">Description:</label>
-                    <textarea class="form-control" id="description" name="description" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="due_date">Due Date:</label>
-                    <input type="date" class="form-control" id="due_date" name="due_date" required>
-                </div>
-                <div class="form-group">
-                    <label for="priority">Priority:</label>
-                    <select class="form-control" id="priority" name="priority" required>
-                        <option value="Low">Low</option>
-                        <option value="Medium">Medium</option>
-                        <option value="High">High</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary btntask">Add Task</button>
-            </form>
-        </div>
-        <div>
-            <h3 class="animatext" style="text-align: center;">Tasks</h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Due Date</th>
-                        <th>Priority</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for task in tasks %}
-                    <tr>
-                        <td>{{ task.title }}</td>
-                        <td>{{ task.description }}</td>
-                        <td>{{ task.due_date.strftime('%Y-%m-%d') }}</td>
-                        <td>{{ task.priority }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        </div>
-        {% endblock %}
+    <h1 class="mb-4 animatext" style="text-align: center;">Task Manager</h1>
+    <div class="mb-4 tasksection">
+        <h3 style="text-align: center;">Add Task</h3>
+        <form action="/add_task" method="post" class="formtasks">
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="due_date">Due Date:</label>
+                <input type="date" class="form-control" id="due_date" name="due_date" required>
+            </div>
+            <div class="form-group">
+                <label for="priority">Priority:</label>
+                <select class="form-control" id="priority" name="priority" required>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btntask">Add Task</button>
+        </form>
+    </div>
+    <div>
+        <h3 class="animatext" style="text-align: center;">Tasks</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Due Date</th>
+                    <th>Priority</th>
+                    <th>Actions</th> <!-- New column for actions -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.due_date.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ task.priority }}</td>
+                    <td>
+                        <a href="{{ url_for('edit_task', task_id=task.id) }}" class="btn btn-primary">Edit</a>
+                        <form action="{{ url_for('delete_task', task_id=task.id) }}" method="post" style="display: inline-block;">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

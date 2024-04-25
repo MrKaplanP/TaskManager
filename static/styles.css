@@ -49,18 +49,17 @@ body {
 
 .bodycont {
     position: relative;
-    min-height: 100vh;
+    max-height: 100%;
 }
 
 canvas {
     position: absolute;
     z-index: 0;
     overflow: hidden;
-    max-width: 100%;
+    width: 100%;
 }
 
 .wrapcont {
-    padding-bottom: 2.5rem;
     position: relative;
 }
 
@@ -190,6 +189,12 @@ canvas {
 /* Background-color of the even rows */
 .container tr:nth-child(even) {
     background-color: #2C3446;
+}
+
+.container td:last-child:hover {
+    transform: none;
+    box-shadow: none;
+    background-color: unset;
 }
 
 .container th {

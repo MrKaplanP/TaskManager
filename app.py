@@ -99,6 +99,36 @@ def send_notification(task):
     if 0 <= time_difference.days <= 3:
         print(f"Notification: Task '{task.title}' is due in {time_difference.days} days.")
 
+# Route to display the form for editing a task
+@app.route('/edit_task/<int:task_id>', methods=['GET'])
+@login_required
+def edit_task(task_id):
+    task = Task.query.get_or_404(task_id)
+    return render_template('edit_task.html', task=task)
+
+# Route to handle the form submission for editing a task
+@app.route('/update_task/<int:task_id>', methods=['POST'])
+@login_required
+def update_task(task_id):
+    task = Task.query.get_or_404(task_id)
+    task.title = request.form['title']
+    task.description = request.form['description']
+    task.due_date = datetime.strptime(request.form['due_date'], '%Y-%m-%d')
+    task.priority = request.form['priority']
+    db.session.commit()
+    flash('Task updated successfully', 'success')
+    return redirect(url_for('index'))
+
+# Route to handle the deletion of a task
+@app.route('/delete_task/<int:task_id>', methods=['POST'])
+@login_required
+def delete_task(task_id):
+    task = Task.query.get_or_404(task_id)
+    db.session.delete(task)
+    db.session.commit()
+    flash('Task deleted successfully', 'success')
+    return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
     with app.app_context():

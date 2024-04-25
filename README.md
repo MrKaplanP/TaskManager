@@ -44,6 +44,11 @@ The application will be accessible at http://127.0.0.1:5000/ by default.
 - Once logged in, you can add tasks from the dashboard.
 
 
+## TODOs
+
+- [ ]  Make it more secure
+- [ ]  Add edit, delete tasks
+
 ## Tech Stack
 
 **Flask**: Python web framework for building the application backend.\
